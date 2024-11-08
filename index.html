@@ -1477,12 +1477,11 @@
                         <div class="elementor-element elementor-element-127b97dc elementor-widget elementor-widget-image" data-id="127b97dc" data-element_type="widget" data-widget_type="image.default">
                             <div class="elementor-widget-container">
                             <img decoding="async" width="1066" height="1600" 
-     src="images/e5bf4e8b-0f76-4310-b56e-3cc11e253b07.jpg" 
-     alt="" 
-     style="width: 100%; height: auto; min-height: 500px; object-fit: cover;" 
-     class="attachment-full size-full wp-image-192" 
-     srcset="images/e5bf4e8b-0f76-4310-b56e-3cc11e253b07.jpg 1066w, images/e5bf4e8b-0f76-4310-b56e-3cc11e253b07.jpg 200w, images/e5bf4e8b-0f76-4310-b56e-3cc11e253b07.jpg 682w, images/e5bf4e8b-0f76-4310-b56e-3cc11e253b07.jpg 768w, images/e5bf4e8b-0f76-4310-b56e-3cc11e253b07.jpg 1023w" 
+     src="images/e5bf4e8b-0f76-4310-b56e-3cc11e253b07 (1).jpg" 
+     alt="" class="responsive-img attachment-full size-full wp-image-192" 
+     srcset="images/e5bf4e8b-0f76-4310-b56e-3cc11e253b07 (1).jpg 1066w, images/e5bf4e8b-0f76-4310-b56e-3cc11e253b07 (1).jpg 200w, images/e5bf4e8b-0f76-4310-b56e-3cc11e253b07 (1).jpg 682w, images/e5bf4e8b-0f76-4310-b56e-3cc11e253b07 (1).jpg 768w, images/e5bf4e8b-0f76-4310-b56e-3cc11e253b07 (1).jpg 1023w" 
      sizes="(max-width: 1066px) 100vw, 1066px" />
+
  </div>
                         </div>
                     </div>
@@ -1679,7 +1678,7 @@
 
         .rudo-image-column {
             width: 90%;
-            height: 800px; /* Increased height for mobile */
+            height: 400px; /* Increased height for mobile */
             order: -1; /* Displays image first */
         }
 
@@ -1724,6 +1723,28 @@
         align-items: center;
         gap: 5px;
     }
+
+  
+
+/* Apply styling to the elementor container directly */
+.elementor-widget-container {
+    max-height: 600px; /* Adjust this to your desired height */
+    overflow: hidden; /* Hide excess parts of the image */
+}
+
+.responsive-img {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Keep the image proportionate and cropped */
+}
+
+/* Additional media query for smaller screens */
+@media (max-width: 600px) {
+    .elementor-widget-container {
+        max-height: 450px; /* Set smaller height for mobile screens */
+    }
+}
+
 </style>
         <div class="elementor-element elementor-element-a4d4f0f e-flex e-con-boxed e-con e-parent" data-id="a4d4f0f" data-element_type="container">
             <div class="e-con-inner">
