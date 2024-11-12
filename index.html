@@ -2048,37 +2048,82 @@ Houston, TX 77069</span></h3>
                                         content: "" !important
                                     }
                                 </style>
-                                <form class="elementor-form" method="post" name="New Form">
-                                    <input type="hidden" name="post_id" value="57" />
-                                    <input type="hidden" name="form_id" value="4fa44f8" />
-                                    <input type="hidden" name="referer_title" value="" />
+                                <form class="elementor-form" id="newForm" method="post" name="New Form">
+    <input type="hidden" name="post_id" value="57" />
+    <input type="hidden" name="form_id" value="4fa44f8" />
+    <input type="hidden" name="referer_title" value="" />
+    <input type="hidden" name="queried_id" value="57" />
 
-                                    <input type="hidden" name="queried_id" value="57" />
+    <div class="elementor-form-fields-wrapper elementor-labels-">
+      <div class="elementor-field-type-text elementor-field-group elementor-column elementor-field-group-name elementor-col-100">
+        <label for="form-field-name" class="elementor-field-label elementor-screen-only">Name</label>
+        <input size="1" type="text" name="form_fields[name]" id="form-field-name" class="elementor-field elementor-size-sm elementor-field-textual" placeholder="Name">
+      </div>
 
-                                    <div class="elementor-form-fields-wrapper elementor-labels-">
-                                        <div class="elementor-field-type-text elementor-field-group elementor-column elementor-field-group-name elementor-col-100">
-                                            <label for="form-field-name" class="elementor-field-label elementor-screen-only">
-								Name							</label>
-                                            <input size="1" type="text" name="form_fields[name]" id="form-field-name" class="elementor-field elementor-size-sm  elementor-field-textual" placeholder="Name">
-                                        </div>
-                                        <div class="elementor-field-type-email elementor-field-group elementor-column elementor-field-group-email elementor-col-100 elementor-field-required">
-                                            <label for="form-field-email" class="elementor-field-label elementor-screen-only">
-								Email							</label>
-                                            <input size="1" type="email" name="form_fields[email]" id="form-field-email" class="elementor-field elementor-size-sm  elementor-field-textual" placeholder="Email" required="required" aria-required="true">
-                                        </div>
-                                        <div class="elementor-field-type-textarea elementor-field-group elementor-column elementor-field-group-message elementor-col-100">
-                                            <label for="form-field-message" class="elementor-field-label elementor-screen-only">
-								Message							</label>
-                                            <textarea class="elementor-field-textual elementor-field  elementor-size-sm" name="form_fields[message]" id="form-field-message" rows="4" placeholder="Message"></textarea> </div>
-                                        <div class="elementor-field-group elementor-column elementor-field-type-submit elementor-col-100 e-form__buttons">
-                                            <button class="elementor-button elementor-size-sm" >
-						<span class="elementor-button-content-wrapper">
-																						<span class="elementor-button-text">send</span>
-													</span>
-					</button>
-                                        </div>
-                                    </div>
-                                </form>
+      <div class="elementor-field-type-email elementor-field-group elementor-column elementor-field-group-email elementor-col-100 elementor-field-required">
+        <label for="form-field-email" class="elementor-field-label elementor-screen-only">Email</label>
+        <input size="1" type="email" name="form_fields[email]" id="form-field-email" class="elementor-field elementor-size-sm elementor-field-textual" placeholder="Email" required="required" aria-required="true">
+      </div>
+
+      <div class="elementor-field-type-textarea elementor-field-group elementor-column elementor-field-group-message elementor-col-100">
+        <label for="form-field-message" class="elementor-field-label elementor-screen-only">Message</label>
+        <textarea class="elementor-field-textual elementor-field elementor-size-sm" name="form_fields[message]" id="form-field-message" rows="4" placeholder="Message"></textarea>
+      </div>
+
+      <div class="elementor-field-group elementor-column elementor-field-type-submit elementor-col-100 e-form__buttons">
+        <button type="submit" class="elementor-button elementor-size-sm">
+          <span class="elementor-button-content-wrapper">
+            <span class="elementor-button-text">Send</span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Firebase Scripts -->
+  <script type="module">
+    // Firebase imports
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyDrnq7io3cNB7ySnw9cXKn99vHxbJSyOy4",
+  authDomain: "edward-aa44e.firebaseapp.com",
+  databaseURL: "https://edward-aa44e-default-rtdb.firebaseio.com",
+  projectId: "edward-aa44e",
+  storageBucket: "edward-aa44e.firebasestorage.app",
+  messagingSenderId: "877637891621",
+  appId: "1:877637891621:web:3e5f5ff44decc941f6f1cc",
+  measurementId: "G-33VNJXQ3RG"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    // Form submission logic
+    document.getElementById('newForm').addEventListener('submit', function (e) {
+      e.preventDefault(); // Prevent default form submission
+
+      // Retrieve form values
+      const name = document.getElementById('form-field-name').value;
+      const email = document.getElementById('form-field-email').value;
+      const message = document.getElementById('form-field-message').value;
+
+      // Send data to Firebase
+      set(ref(database, 'submissions/' + Math.floor(Math.random() * 10000000)), {
+        name: name,
+        email: email,
+        message: message
+      }).then(() => {
+        alert("Form Submitted Successfully");
+        document.getElementById('newForm').reset(); // Reset form after submission
+      }).catch((error) => {
+        alert("Error: " + error.message);
+      });
+    });
+  </script>
                             </div>
                         </div>
                         <div class="elementor-element elementor-element-e4b4bd7 e-grid-align-left elementor-shape-rounded elementor-grid-0 elementor-widget elementor-widget-social-icons" data-id="e4b4bd7" data-element_type="widget" data-widget_type="social-icons.default">
