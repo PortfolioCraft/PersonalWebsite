@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="images/Black and White Minimalist Professional Initial Logo (1).png" sizes="32x32" />
+  <link rel="icon" href="images/Black and White Minimalist Professional Initial Logo (1).png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="images/Black and White Minimalist Professional Initial Logo (1).png" />
+  <meta name="msapplication-TileImage" content="images/Black and White Minimalist Professional Initial Logo (1).png" />
+  <title>Admin Login</title>
+  <style>
+    /* Basic styling for responsiveness */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f7f7f7;
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 400px;
+      padding: 30px;
+      background: #fff;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      border-radius: 12px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .login-container h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #333;
+      font-weight: 600;
+    }
+
+    .login-container input {
+      width: 100%;
+      padding: 12px;
+      margin: 12px 0;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease;
+    }
+
+    .login-container input:focus {
+      border-color: #006400; /* Dark green */
+      outline: none;
+    }
+
+    .login-container label {
+      display: inline-flex;
+      align-items: center;
+      text-align: left;
+      margin-top: 8px;
+      font-size: 14px;
+      color: #666;
+      width: 100%;
+    }
+
+    .login-container input[type="checkbox"] {
+      margin-right: 8px; /* Space between checkbox and label */
+    }
+
+    .login-container button {
+      width: 100%;
+      padding: 12px;
+      background-color: #006400; /* Dark green */
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease, transform 0.2s;
+    }
+
+    .login-container button:hover {
+      background-color: #004d00; /* Darker green */
+      transform: translateY(-2px);
+    }
+
+    .login-container button:active {
+      transform: translateY(0);
+    }
+
+    .login-container button:focus {
+      outline: none;
+    }
+
+    #error-message {
+      color: red;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .logo {
+      display: block;
+      margin: 0 auto 20px;
+      max-width: 120px;
+      height: auto;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 480px) {
+      .login-container {
+        width: 90%;
+        padding: 20px;
+      }
+
+      .login-container h2 {
+        font-size: 22px;
+      }
+
+      .login-container input,
+      .login-container button {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-container">
+    <!-- Logo above the heading -->
+    <img src="images/Black and White Minimalist Professional Initial Logo (1).png" alt="Logo" class="logo">
+    <h2>Admin Login</h2>
+    <input type="email" id="admin-email" placeholder="Email" required>
+    <input type="password" id="admin-password" placeholder="Password" required>
+    <label><input type="checkbox" id="show-password"> Show Password</label>
+    <button type="button" onclick="adminLogin()">Login</button>
+    <p id="error-message"></p>
+  </div>
+
+  <script>
+    // Predefined admin credentials
+    const validEmail = "admin@gmail.com";
+    const validPassword = "admin123";
+
+    // Toggle password visibility
+    document.getElementById("show-password").addEventListener("change", function () {
+      const passwordField = document.getElementById("admin-password");
+      if (this.checked) {
+        passwordField.type = "text";
+      } else {
+        passwordField.type = "password";
+      }
+    });
+
+    function adminLogin() {
+      const email = document.getElementById("admin-email").value;
+      const password = document.getElementById("admin-password").value;
+
+      // Check if the entered email and password match the predefined credentials
+      if (email === validEmail && password === validPassword) {
+        // Store login status in localStorage
+        localStorage.setItem("adminLoggedIn", "true");
+        window.location.href = "AdminSubmissions.html"; // Redirect to submissions page
+      } else {
+        document.getElementById("error-message").innerText = "Login failed. Incorrect email or password.";
+      }
+    }
+  </script>
+</body>
+</html>

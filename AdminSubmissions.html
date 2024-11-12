@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="images/Black and White Minimalist Professional Initial Logo (1).png" sizes="32x32" />
+  <link rel="icon" href="images/Black and White Minimalist Professional Initial Logo (1).png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="images/Black and White Minimalist Professional Initial Logo (1).png" />
+  <meta name="msapplication-TileImage" content="images/Black and White Minimalist Professional Initial Logo (1).png" />
+  <title>Admin Submissions</title>
+  <style>
+    /* Basic styling for responsiveness */
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+    }
+    .submissions-container {
+      width: 100%;
+      max-width: 800px;
+      padding: 20px;
+      background: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      margin-top: 20px;
+      box-sizing: border-box;
+    }
+    h2 {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 1.5em;
+    }
+
+    /* Styling for the list */
+    .submission-item {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #fafafa;
+    }
+    .submission-item h3 {
+      margin: 0;
+      font-size: 1.1em;
+      font-weight: bold;
+    }
+    .submission-item p {
+      margin: 5px 0;
+      color: #333;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #ff0000;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 20px;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #cc0000;
+    }
+
+    /* Logo styling */
+    .logo {
+      display: block;
+      margin: 0 auto 20px;
+      max-width: 150px; /* Adjust the size of the logo */
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .submissions-container {
+        width: 95%;
+        margin: 10px;
+        padding: 15px;
+      }
+      button {
+        width: 100%;
+        padding: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        justify-content: flex-start;
+        padding: 10px;
+      }
+      .submissions-container {
+        width: 100%;
+        margin: 0;
+      }
+      h2 {
+        font-size: 1.5em;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="submissions-container">
+    <!-- Logo above the heading -->
+    <img src="images/Black and White Minimalist Professional Initial Logo (1).png" alt="Logo" class="logo">
+    <h2>Contact Form Submissions</h2>
+
+    <div id="submissions-list">
+      <!-- Firebase data will populate here -->
+    </div>
+    <button id="logoutBtn">Logout</button>
+  </div>
+
+  <script type="module">
+    // Check if the user is logged in
+    if (localStorage.getItem("adminLoggedIn") !== "true") {
+      console.log("Admin is not logged in. Redirecting to Admin.html...");
+      window.location.href = "Admin.html"; // Redirect to login if not authenticated
+    }
+
+    // Firebase Realtime Database Script
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyDrnq7io3cNB7ySnw9cXKn99vHxbJSyOy4",
+        authDomain: "edward-aa44e.firebaseapp.com",
+        databaseURL: "https://edward-aa44e-default-rtdb.firebaseio.com",
+        projectId: "edward-aa44e",
+        storageBucket: "edward-aa44e.firebasestorage.app",
+        messagingSenderId: "877637891621",
+        appId: "1:877637891621:web:3e5f5ff44decc941f6f1cc",
+        measurementId: "G-33VNJXQ3RG"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    // Fetch submissions from Firebase
+    const submissionsRef = ref(database, 'submissions');
+    onValue(submissionsRef, (snapshot) => {
+      const data = snapshot.val();
+      const submissionsList = document.getElementById("submissions-list");
+      submissionsList.innerHTML = ""; // Clear existing items
+      for (const id in data) {
+        const { name, email, message } = data[id];
+        const submissionItem = document.createElement("div");
+        submissionItem.classList.add("submission-item");
+
+        submissionItem.innerHTML = `
+          <p><strong>Name:</strong>${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Message:</strong> ${message}</p>
+        `;
+
+        submissionsList.appendChild(submissionItem);
+      }
+    });
+
+    // Logout function with debugging
+    function logout() {
+      console.log("Logout function triggered.");
+      // Check if the value is still in localStorage before removing
+      const loggedIn = localStorage.getItem("adminLoggedIn");
+      if (loggedIn === "true") {
+        console.log("Logged in status found. Proceeding with logout...");
+        localStorage.removeItem("adminLoggedIn");
+        console.log("localStorage adminLoggedIn removed.");
+      } else {
+        console.log("No logged-in status found in localStorage.");
+      }
+
+      // Redirect to Admin.html
+      console.log("Redirecting to Admin.html...");
+      window.location.href = "Admin.html"; // Make sure Admin.html is the correct path
+    }
+
+    // Attach event listener to the logout button
+    document.getElementById('logoutBtn').addEventListener('click', logout);
+
+  </script>
+</body>
+</html>
